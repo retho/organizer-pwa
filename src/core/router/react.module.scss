@@ -1,0 +1,8 @@
+.link {
+  display: inline-block;
+
+  &, &:hover, &:visited {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}

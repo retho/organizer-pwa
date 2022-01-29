@@ -1,9 +1,9 @@
 import React from 'react';
-import {stringifyRoute} from 'src/core/router';
-import {emptyQueryableInstance, Queryable, Redirect, Route} from 'src/core/router';
+import {emptyQueryableInstance, Queryable, Route} from 'src/core/router';
 import DemoPage from 'src/pages/DemoPage';
 import DemoRouter, {DemoRouterPageTab} from 'src/pages/DemoRouter';
 import {demoRouterPageQueryableInstance} from 'src/pages/DemoRouter/query';
+import MainPage from 'src/pages/MainPage';
 
 export type AppRoute<Params extends Record<string, string>, Query> = Route<Params, Query> & {
   render: (params: Params, query: Query) => JSX.Element;
@@ -21,7 +21,7 @@ export const demo = createRoute(emptyQueryableInstance)({
 });
 export const root = createRoute(emptyQueryableInstance)({
   pattern: '/',
-  render: () => <Redirect to={stringifyRoute(demo, {}, {})} />,
+  render: () => <MainPage />,
 });
 
 export const devDemoRouter = createRoute(demoRouterPageQueryableInstance)<{

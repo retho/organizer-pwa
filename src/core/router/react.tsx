@@ -1,8 +1,10 @@
 import {History, Location} from 'history';
 import React, {FC, useContext, useLayoutEffect, useMemo} from 'react';
 
+import {cn} from '../bem';
 import {panic, useForceRender} from '../utils';
 import {Href, matchRoute, Route} from './core';
+import styles from './react.module.scss';
 
 type RouterContext = {
   history: History;
@@ -15,10 +17,18 @@ export const RouterProvider: FC<{history: History}> = ({history, children}) => (
   <routerContext.Provider value={{history}}>{children}</routerContext.Provider>
 );
 
-export const Link: FC<{href: Href} & React.AnchorHTMLAttributes<HTMLAnchorElement>> = ({
-  href,
-  ...rest
-}) => <a href={href} {...rest} />;
+export const Link: FC<
+  {href: Href; replace?: boolean} & React.AnchorHTMLAttributes<HTMLAnchorElement>
+> = ({href, className, replace, onClick, ...rest}) => {
+  const history = useHistory();
+  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = e => {
+    e.preventDefault();
+    if (replace) history.replace(href);
+    else history.push(href);
+    onClick && onClick(e);
+  };
+  return <a href={href} onClick={handleClick} className={cn(styles.link, className)} {...rest} />;
+};
 export const Redirect: FC<{to: Href}> = ({to}) => {
   const {history} = useRouterContext();
   useLayoutEffect(() => {
