@@ -1,2 +1,2 @@
-export * from './component';
-export {default} from './component';
+export * from './MainPage';
+export {default} from './MainPage';

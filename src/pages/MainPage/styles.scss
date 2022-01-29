@@ -13,3 +13,11 @@
     padding: 8px 16px;
   }
 }
+
+.FooterTabs {
+  &__icon {
+    &--active {
+      color: #e94f37;
+    }
+  }
+}
