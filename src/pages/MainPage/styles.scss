@@ -15,9 +15,5 @@
 }
 
 .FooterTabs {
-  &__icon {
-    &--active {
-      color: #e94f37;
-    }
-  }
+  display: flex;
 }

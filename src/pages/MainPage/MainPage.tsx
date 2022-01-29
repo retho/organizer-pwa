@@ -6,6 +6,8 @@ import React, {FC} from 'react';
 import MainLayout from 'src/components/templates/MainLayout';
 import {bem, cn} from 'src/core/bem';
 
+import TodoList from './TodoList';
+
 const footerTabs = bem(module.id, 'FooterTabs');
 type FooterTabsProps = {
   className?: string;
@@ -13,11 +15,8 @@ type FooterTabsProps = {
 const FooterTabs: FC<FooterTabsProps> = ({className}) => {
   return (
     <Paper className={cn(className, footerTabs())} variant="outlined">
-      <IconButton className={root('')}>
-        <FormatListBulletedSharpIcon
-          sx={{fontSize: 32}}
-          className={footerTabs('icon', {active: true})}
-        />
+      <IconButton className={root('')} color="primary">
+        <FormatListBulletedSharpIcon sx={{fontSize: 32}} />
       </IconButton>
     </Paper>
   );
@@ -26,9 +25,11 @@ const FooterTabs: FC<FooterTabsProps> = ({className}) => {
 const root = bem(module.id, 'MainPage');
 const MainPage: FC = () => {
   return (
-    <MainLayout header="Список дел">
+    <MainLayout header="Todo list">
       <div className={root()}>
-        <div className={root('body')}></div>
+        <div className={root('body')}>
+          <TodoList />
+        </div>
         <FooterTabs className={root('footer')} />
       </div>
     </MainLayout>

@@ -21,8 +21,8 @@ export {nanoid} from '@reduxjs/toolkit';
 // * https://spin.atomicobject.com/2018/01/15/typescript-flexible-nominal-typing/
 declare const brand: unique symbol;
 declare const flavor: unique symbol;
-export type Brand<U extends symbol, T> = {[brand]: U} & T;
-export type Flavor<U extends symbol, T> = {[flavor]?: U} & T;
+export type Brand<U extends symbol | string, T> = {[brand]: U} & T;
+export type Flavor<U extends symbol | string, T> = {[flavor]?: U} & T;
 
 // * https://stackoverflow.com/questions/33915459/algebraic-data-types-in-typescript
 // * https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions
