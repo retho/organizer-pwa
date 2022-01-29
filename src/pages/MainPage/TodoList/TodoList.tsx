@@ -2,35 +2,29 @@ import './styles.scss';
 
 import {Add} from '@mui/icons-material';
 import {Fab} from '@mui/material';
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
+import Preloader from 'src/components/atoms/Preloader';
 import {bem} from 'src/core/bem';
-import {nanoid} from 'src/core/utils';
-import {timestamp} from 'src/utils/timestamp';
+import {useDispatch, useSelector} from 'src/core/redux';
+import {loadTodoList} from 'src/store/slices/todoList';
 
-import TodoListItem, {TodoTask} from '../TodoListItem';
-
-const todoList: TodoTask[] = [
-  {
-    id: nanoid(),
-    created_at: timestamp(new Date()),
-    title: 'title 1',
-    description: 'description',
-    status: {kind: 'in_progress'},
-  },
-  {
-    id: nanoid(),
-    created_at: timestamp(new Date()),
-    title: 'title 2',
-    description: 'description',
-    status: {kind: 'in_progress'},
-  },
-];
+import TodoListItem from '../TodoListItem';
 
 const root = bem(module.id, 'TodoList');
 const TodoList: FC = () => {
+  const dispatch = useDispatch();
+
+  const loading = useSelector(state => !!state.todoList.fetching);
+  const todoList = useSelector(state => state.todoList.list);
+
+  useEffect(() => {
+    dispatch(loadTodoList());
+  }, []);
+
   return (
     <div className={root()}>
-      {todoList.map(todo => (
+      {loading && <Preloader />}
+      {todoList?.map(todo => (
         <TodoListItem key={todo.id} task={todo} className={root('item')} />
       ))}
       <Fab color="primary" aria-label="add" className={root('add')}>
