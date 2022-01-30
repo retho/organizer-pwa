@@ -6,6 +6,8 @@ import React, {FC, useEffect} from 'react';
 import Preloader from 'src/components/atoms/Preloader';
 import {bem} from 'src/core/bem';
 import {useDispatch, useSelector} from 'src/core/redux';
+import {Link, stringifyRoute} from 'src/core/router';
+import {routes} from 'src/router';
 import {loadTodoList} from 'src/store/slices/todoList';
 
 import TodoListItem from '../TodoListItem';
@@ -27,7 +29,13 @@ const TodoList: FC = () => {
       {todoList?.map(todo => (
         <TodoListItem key={todo.id} task={todo} className={root('item')} />
       ))}
-      <Fab color="primary" aria-label="add" className={root('add')}>
+      <Fab
+        color="primary"
+        aria-label="add"
+        className={root('add')}
+        LinkComponent={Link}
+        href={stringifyRoute(routes.todoNew, {}, {})}
+      >
         <Add />
       </Fab>
     </div>

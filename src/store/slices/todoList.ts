@@ -28,11 +28,12 @@ const mock: TodoTask[] = [
   },
 ];
 
+export type TodoTaskItem = {id: string; done: boolean; description: string};
 export type TodoTask = {
   id: string;
   created_at: Timestamp;
   title: string;
-  items: {id: string; done: boolean; description: string}[];
+  items: TodoTaskItem[];
 };
 
 type State = {

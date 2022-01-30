@@ -7,9 +7,3 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 yarn
 npm start
 ```
-
-
-# FAQ
-
-## Chrome автоматически заменяет http на https при переходах на сайт
-- https://howchoo.com/chrome/stop-chrome-from-automatically-redirecting-https

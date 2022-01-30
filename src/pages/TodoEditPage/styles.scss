@@ -1,0 +1,37 @@
+.TodoEditPage {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    width: 100%;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    padding: 0 8px;
+  }
+
+  &__footer {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+
+.TodoTaskItemEdit {
+  display: flex;
+
+  &__btn {
+    flex: 0 0 auto;
+  }
+
+  &__description {
+    flex: 1 1 auto;
+  }
+
+  &__textinput {
+    width: 100%;
+  }
+}
