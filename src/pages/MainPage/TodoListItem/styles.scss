@@ -1,3 +1,19 @@
 
 .TodoListItem {
+  &__title {
+    font-size: 24px;
+    line-height: 1.5em;
+    display: flex;
+  }
+
+  &__divider {
+    display: inline-block;
+    margin-left: auto;
+  }
+
+  &__itemLabel {
+    &--done {
+      text-decoration: line-through;
+    }
+  }
 }
