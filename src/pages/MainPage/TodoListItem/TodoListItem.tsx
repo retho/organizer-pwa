@@ -4,7 +4,7 @@ import {DeleteTwoTone, EditTwoTone} from '@mui/icons-material';
 import {Card, CardContent, Checkbox, FormControlLabel, IconButton} from '@mui/material';
 import React, {FC} from 'react';
 import {bem, cn} from 'src/core/bem';
-import {TodoTask} from 'src/store/slices/todoList';
+import {TodoTask} from 'src/storage/todos';
 
 const root = bem(module.id, 'TodoListItem');
 type Props = {

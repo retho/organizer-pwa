@@ -1,7 +1,8 @@
 import {createSlice, createSliceName} from 'src/core/redux';
 import {PayloadAction} from 'src/core/redux';
 import {nanoid, sleep} from 'src/core/utils';
-import {Timestamp, timestamp} from 'src/utils/timestamp';
+import {TodoTask} from 'src/storage/todos';
+import {timestamp} from 'src/utils/timestamp';
 
 import {AppThunk} from '..';
 
@@ -27,14 +28,6 @@ const mock: TodoTask[] = [
     ],
   },
 ];
-
-export type TodoTaskItem = {id: string; done: boolean; description: string};
-export type TodoTask = {
-  id: string;
-  created_at: Timestamp;
-  title: string;
-  items: TodoTaskItem[];
-};
 
 type State = {
   fetching: number;

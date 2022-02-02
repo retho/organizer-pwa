@@ -8,7 +8,7 @@ import {bem} from 'src/core/bem';
 import {stringifyRoute, useHistory} from 'src/core/router';
 import {nanoid} from 'src/core/utils';
 import {routes} from 'src/router';
-import {TodoTaskItem} from 'src/store/slices/todoList';
+import {TodoTaskItem} from 'src/storage/todos';
 
 const taskItemEdit = bem(module.id, 'TodoTaskItemEdit');
 type TodoTaskItemProps = {
