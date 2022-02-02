@@ -2,13 +2,17 @@ import './styles.scss';
 
 import {Add, Close, Done, EditTwoTone} from '@mui/icons-material';
 import {IconButton, Paper, TextField} from '@mui/material';
-import React, {FC, useLayoutEffect, useState} from 'react';
+import React, {FC, useLayoutEffect, useMemo, useState} from 'react';
+import Preloader from 'src/components/atoms/Preloader';
 import MainLayout from 'src/components/templates/MainLayout';
 import {bem} from 'src/core/bem';
+import {useDispatch, useSelector} from 'src/core/redux';
 import {stringifyRoute, useHistory} from 'src/core/router';
 import {nanoid} from 'src/core/utils';
 import {routes} from 'src/router';
 import {TodoTaskItem} from 'src/storage/todos';
+import {saveTodo} from 'src/store/slices/todoList';
+import {timestamp} from 'src/utils/timestamp';
 
 const taskItemEdit = bem(module.id, 'TodoTaskItemEdit');
 type TodoTaskItemProps = {
@@ -66,7 +70,13 @@ const TodoTaskItemEdit: FC<TodoTaskItemProps> = ({value, onChange}) => {
 
 const root = bem(module.id, 'TodoEditPage');
 const TodoEditPage: FC = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
+
+  const loading = useSelector(state => !!state.todoList.fetching);
+
+  const todoId = useMemo(() => nanoid(), []);
+  const created_at = null;
 
   const [title, setTitle] = useState('');
   const [taskItems, setTaskItems] = useState<TodoTaskItem[]>([]);
@@ -79,11 +89,22 @@ const TodoEditPage: FC = () => {
     setAddingNew(false);
   };
 
-  const handleOk = () => history.push(stringifyRoute(routes.todoList, {}, {}));
+  const handleOk = async () => {
+    await dispatch(
+      saveTodo({
+        id: todoId,
+        created_at: created_at || timestamp(new Date()),
+        title,
+        items: taskItems,
+      })
+    );
+    history.push(stringifyRoute(routes.todoList, {}, {}));
+  };
   const handleClose = () => history.push(stringifyRoute(routes.todoList, {}, {}));
 
   return (
     <MainLayout header="New todo" backTo={stringifyRoute(routes.todoList, {}, {})}>
+      {loading && <Preloader />}
       <div className={root()}>
         <div className={root('body')}>
           <TextField

@@ -1,33 +1,10 @@
 import {createSlice, createSliceName} from 'src/core/redux';
 import {PayloadAction} from 'src/core/redux';
-import {nanoid, sleep} from 'src/core/utils';
-import {TodoTask} from 'src/storage/todos';
-import {timestamp} from 'src/utils/timestamp';
+import {readTodoList, TodoTask, writeTodo} from 'src/storage/todos';
 
 import {AppThunk} from '..';
 
 const sliceName = createSliceName(module.id, 'todoList');
-
-const mock: TodoTask[] = [
-  {
-    id: nanoid(),
-    created_at: timestamp(new Date()),
-    title: 'title 1',
-    items: [
-      {id: nanoid(), done: false, description: 'todo1'},
-      {id: nanoid(), done: true, description: 'todo2'},
-    ],
-  },
-  {
-    id: nanoid(),
-    created_at: timestamp(new Date()),
-    title: 'title 2',
-    items: [
-      {id: nanoid(), done: false, description: 'todo1'},
-      {id: nanoid(), done: true, description: 'todo2'},
-    ],
-  },
-];
 
 type State = {
   fetching: number;
@@ -58,7 +35,13 @@ export const {reset, addFetching, setList} = slice.actions;
 
 export const loadTodoList = (): AppThunk => async dispatch => {
   dispatch(addFetching(1));
-  await sleep(1_000);
-  dispatch(setList(mock));
+  const list = readTodoList();
+  dispatch(setList(list));
+  dispatch(addFetching(-1));
+};
+
+export const saveTodo = (todo: TodoTask): AppThunk => async dispatch => {
+  dispatch(addFetching(1));
+  writeTodo(todo);
   dispatch(addFetching(-1));
 };

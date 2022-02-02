@@ -13,9 +13,11 @@ export type TodoTask = {
   items: TodoTaskItem[];
 };
 
-export const saveTodo = (todo: TodoTask): void => {
+export const readTodo = (id: string): null | TodoTask => lsGet(lskeyTodo(id));
+
+export const writeTodo = (todo: TodoTask): void => {
   lsSet(lskeyTodo(todo.id), todo);
-  lsUpdate(lskeyTodoList, todoIdsList => union(todoIdsList || [], todo.id));
+  lsUpdate(lskeyTodoList, todoIdsList => union(todoIdsList || [], [todo.id]));
 };
 
 export const removeTodo = (id: string): void => {
@@ -23,5 +25,5 @@ export const removeTodo = (id: string): void => {
   lsUpdate(lskeyTodoList, todoIdsList => (todoIdsList || []).filter(x => x !== id));
 };
 
-export const getTodoList = (): TodoTask[] =>
+export const readTodoList = (): TodoTask[] =>
   compact((lsGet(lskeyTodoList) || []).map(id => lsGet(lskeyTodo(id))));
