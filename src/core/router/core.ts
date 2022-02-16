@@ -3,6 +3,8 @@ import {parse as qsParse, stringify as qsStringifyQuery} from 'query-string';
 import {Brand} from 'src/core/utils';
 import UrlPattern from 'url-pattern';
 
+const PUBLIC_URL = process.env.PUBLIC_URL || '';
+
 export type RawQuery = Record<string, [undefined] | string[]>;
 
 export type Queryable<T extends unknown> = {
@@ -53,7 +55,7 @@ export const matchRoute = <Params extends Record<string, string>, Query>(
   pathname: string,
   search: string
 ): null | {params: Params; query: Query} => {
-  const urlPattern = new UrlPattern(route.pattern);
+  const urlPattern = new UrlPattern(PUBLIC_URL + route.pattern);
   const matched: null | Params = urlPattern.match(pathname);
 
   if (!matched) return null;
@@ -69,7 +71,7 @@ export const stringifyRoute = <Params extends Record<string, string>, Query exte
   params: Params,
   query: Query
 ): Href => {
-  const pattern = new UrlPattern(route.pattern);
+  const pattern = new UrlPattern(PUBLIC_URL + route.pattern);
   const rawQuery = route.queryableInstance.toQuery(query);
   return (pattern.stringify(params && mapValues(params, encodeURIComponent)) +
     (isEmpty(query) ? '' : stringifyQuery(rawQuery))) as Href;
