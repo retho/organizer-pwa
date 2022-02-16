@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/organizer-pwa/static/css/main.c71114c6.chunk.css",
+    "main.js": "/organizer-pwa/static/js/main.a7e16750.chunk.js",
+    "main.js.map": "/organizer-pwa/static/js/main.a7e16750.chunk.js.map",
+    "runtime-main.js": "/organizer-pwa/static/js/runtime-main.22d6b113.js",
+    "runtime-main.js.map": "/organizer-pwa/static/js/runtime-main.22d6b113.js.map",
+    "static/css/2.83342f34.chunk.css": "/organizer-pwa/static/css/2.83342f34.chunk.css",
+    "static/js/2.c9b83c47.chunk.js": "/organizer-pwa/static/js/2.c9b83c47.chunk.js",
+    "static/js/2.c9b83c47.chunk.js.map": "/organizer-pwa/static/js/2.c9b83c47.chunk.js.map",
+    "static/js/3.cf1b6a88.chunk.js": "/organizer-pwa/static/js/3.cf1b6a88.chunk.js",
+    "static/js/3.cf1b6a88.chunk.js.map": "/organizer-pwa/static/js/3.cf1b6a88.chunk.js.map",
+    "index.html": "/organizer-pwa/index.html",
+    "service-worker.js": "/organizer-pwa/service-worker.js",
+    "service-worker.js.map": "/organizer-pwa/service-worker.js.map",
+    "static/css/2.83342f34.chunk.css.map": "/organizer-pwa/static/css/2.83342f34.chunk.css.map",
+    "static/css/main.c71114c6.chunk.css.map": "/organizer-pwa/static/css/main.c71114c6.chunk.css.map",
+    "static/js/2.c9b83c47.chunk.js.LICENSE.txt": "/organizer-pwa/static/js/2.c9b83c47.chunk.js.LICENSE.txt",
+    "static/media/iconSort.svg": "/organizer-pwa/static/media/iconSort.05cbe297.svg",
+    "static/media/iconSortDown.svg": "/organizer-pwa/static/media/iconSortDown.01135035.svg",
+    "static/media/iconSortUp.svg": "/organizer-pwa/static/media/iconSortUp.58b8c4f7.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.22d6b113.js",
+    "static/css/2.83342f34.chunk.css",
+    "static/js/2.c9b83c47.chunk.js",
+    "static/css/main.c71114c6.chunk.css",
+    "static/js/main.a7e16750.chunk.js"
+  ]
+}
