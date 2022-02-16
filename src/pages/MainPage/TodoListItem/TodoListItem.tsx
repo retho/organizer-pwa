@@ -11,30 +11,44 @@ import {TodoTask} from 'src/storage/todos';
 const root = bem(module.id, 'TodoListItem');
 type Props = {
   className?: string;
-  task: TodoTask;
+  value: TodoTask;
+  onChange: (value: TodoTask) => void;
 };
-const TodoListItem: FC<Props> = ({className, task}) => {
+const TodoListItem: FC<Props> = ({className, value, onChange}) => {
+  const handleCheckedChange = (itemId: string) => (_: unknown, checked: boolean) => {
+    onChange({
+      ...value,
+      items: value.items.map(item => {
+        if (item.id !== itemId) return item;
+        return {
+          ...item,
+          done: checked,
+        };
+      }),
+    });
+  };
+
   return (
     <Card className={cn(className, root())}>
       <CardContent>
         <div className={root('title')}>
-          {task.title}
+          {value.title}
           <IconButton
             LinkComponent={Link}
-            href={stringifyRoute(routes.todoEdit, {todoId: task.id}, {})}
+            href={stringifyRoute(routes.todoEdit, {todoId: value.id}, {})}
           >
             <EditTwoTone sx={{fontSize: 24}} />
           </IconButton>
           <div className={root('divider')} />
-          <IconButton disabled={task.items.some(x => !x.done)}>
+          <IconButton disabled={value.items.some(x => !x.done)}>
             <DeleteTwoTone sx={{fontSize: 24}} />
           </IconButton>
         </div>
         <div>
-          {task.items.map(item => (
+          {value.items.map(item => (
             <div key={item.id}>
               <FormControlLabel
-                control={<Checkbox checked={item.done} />}
+                control={<Checkbox checked={item.done} onChange={handleCheckedChange(item.id)} />}
                 label={
                   <span className={root('itemLabel', {done: item.done})}>{item.description}</span>
                 }

@@ -8,7 +8,8 @@ import {bem} from 'src/core/bem';
 import {useDispatch, useSelector} from 'src/core/redux';
 import {Link, stringifyRoute} from 'src/core/router';
 import {routes} from 'src/router';
-import {loadTodoList} from 'src/store/slices/todoList';
+import {TodoTask} from 'src/storage/todos';
+import {loadTodoList, saveTodo} from 'src/store/slices/todoList';
 
 import TodoListItem from '../TodoListItem';
 
@@ -23,11 +24,16 @@ const TodoList: FC = () => {
     dispatch(loadTodoList());
   }, []);
 
+  const handleChange = async (task: TodoTask) => {
+    await dispatch(saveTodo(task));
+    dispatch(loadTodoList());
+  };
+
   return (
     <div className={root()}>
       {loading && <Preloader />}
       {todoList?.map(todo => (
-        <TodoListItem key={todo.id} task={todo} className={root('item')} />
+        <TodoListItem key={todo.id} className={root('item')} value={todo} onChange={handleChange} />
       ))}
       <Fab
         color="primary"
