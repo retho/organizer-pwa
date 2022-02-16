@@ -4,6 +4,8 @@ import {DeleteTwoTone, EditTwoTone} from '@mui/icons-material';
 import {Card, CardContent, Checkbox, FormControlLabel, IconButton} from '@mui/material';
 import React, {FC} from 'react';
 import {bem, cn} from 'src/core/bem';
+import {Link, stringifyRoute} from 'src/core/router';
+import {routes} from 'src/router';
 import {TodoTask} from 'src/storage/todos';
 
 const root = bem(module.id, 'TodoListItem');
@@ -17,7 +19,10 @@ const TodoListItem: FC<Props> = ({className, task}) => {
       <CardContent>
         <div className={root('title')}>
           {task.title}
-          <IconButton>
+          <IconButton
+            LinkComponent={Link}
+            href={stringifyRoute(routes.todoEdit, {todoId: task.id}, {})}
+          >
             <EditTwoTone sx={{fontSize: 24}} />
           </IconButton>
           <div className={root('divider')} />

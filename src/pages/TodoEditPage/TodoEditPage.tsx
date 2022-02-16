@@ -10,9 +10,9 @@ import {useDispatch, useSelector} from 'src/core/redux';
 import {stringifyRoute, useHistory} from 'src/core/router';
 import {nanoid} from 'src/core/utils';
 import {routes} from 'src/router';
-import {TodoTaskItem} from 'src/storage/todos';
+import {readTodo, TodoTaskItem} from 'src/storage/todos';
 import {saveTodo} from 'src/store/slices/todoList';
-import {timestamp} from 'src/utils/timestamp';
+import {Timestamp, timestamp} from 'src/utils/timestamp';
 
 const taskItemEdit = bem(module.id, 'TodoTaskItemEdit');
 type TodoTaskItemProps = {
@@ -69,18 +69,31 @@ const TodoTaskItemEdit: FC<TodoTaskItemProps> = ({value, onChange}) => {
 };
 
 const root = bem(module.id, 'TodoEditPage');
-const TodoEditPage: FC = () => {
+type TodoEditPageProps = {
+  todoId?: null | string;
+};
+const TodoEditPage: FC<TodoEditPageProps> = ({todoId: editedTodoId}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const loading = useSelector(state => !!state.todoList.fetching);
 
-  const todoId = useMemo(() => nanoid(), []);
-  const created_at = null;
+  const todoId = useMemo(() => editedTodoId || nanoid(), [editedTodoId]);
 
+  const [created_at, set_created_at] = useState<null | Timestamp>(null);
   const [title, setTitle] = useState('');
   const [taskItems, setTaskItems] = useState<TodoTaskItem[]>([]);
   const [addingNew, setAddingNew] = useState(false);
+
+  useLayoutEffect(() => {
+    if (editedTodoId) {
+      const editedTodo = readTodo(editedTodoId);
+      if (!editedTodo) return;
+      setTitle(editedTodo.title);
+      setTaskItems(editedTodo.items);
+      set_created_at(editedTodo.created_at);
+    }
+  }, [editedTodoId]);
 
   const handleTaskEdit = (task: TodoTaskItem) =>
     setTaskItems(list => list.map(x => (x.id !== task.id ? x : task)));
