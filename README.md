@@ -7,3 +7,11 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 yarn
 npm start
 ```
+
+# Deploy to GitHub Pages
+
+https://retho.github.io/organizer-pwa/
+
+```bash
+npm run deploy
+```
