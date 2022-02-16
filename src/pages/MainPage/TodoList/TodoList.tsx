@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from 'src/core/redux';
 import {Link, stringifyRoute} from 'src/core/router';
 import {routes} from 'src/router';
 import {TodoTask} from 'src/storage/todos';
-import {loadTodoList, saveTodo} from 'src/store/slices/todoList';
+import {deleteTodo, loadTodoList, saveTodo} from 'src/store/slices/todoList';
 
 import TodoListItem from '../TodoListItem';
 
@@ -28,12 +28,22 @@ const TodoList: FC = () => {
     await dispatch(saveTodo(task));
     dispatch(loadTodoList());
   };
+  const handleRemove = async (todoId: string) => {
+    await dispatch(deleteTodo(todoId));
+    dispatch(loadTodoList());
+  };
 
   return (
     <div className={root()}>
       {loading && <Preloader />}
       {todoList?.map(todo => (
-        <TodoListItem key={todo.id} className={root('item')} value={todo} onChange={handleChange} />
+        <TodoListItem
+          key={todo.id}
+          className={root('item')}
+          value={todo}
+          onChange={handleChange}
+          onRemove={handleRemove}
+        />
       ))}
       <Fab
         color="primary"

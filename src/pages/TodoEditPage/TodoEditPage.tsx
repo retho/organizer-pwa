@@ -116,7 +116,10 @@ const TodoEditPage: FC<TodoEditPageProps> = ({todoId: editedTodoId}) => {
   const handleClose = () => history.push(stringifyRoute(routes.todoList, {}, {}));
 
   return (
-    <MainLayout header="New todo" backTo={stringifyRoute(routes.todoList, {}, {})}>
+    <MainLayout
+      header={editedTodoId ? 'Edit' : 'New'}
+      backTo={stringifyRoute(routes.todoList, {}, {})}
+    >
       {loading && <Preloader />}
       <div className={root()}>
         <div className={root('body')}>

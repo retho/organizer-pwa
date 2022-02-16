@@ -13,8 +13,9 @@ type Props = {
   className?: string;
   value: TodoTask;
   onChange: (value: TodoTask) => void;
+  onRemove: (id: string) => void;
 };
-const TodoListItem: FC<Props> = ({className, value, onChange}) => {
+const TodoListItem: FC<Props> = ({className, value, onChange, onRemove}) => {
   const handleCheckedChange = (itemId: string) => (_: unknown, checked: boolean) => {
     onChange({
       ...value,
@@ -40,7 +41,7 @@ const TodoListItem: FC<Props> = ({className, value, onChange}) => {
             <EditTwoTone sx={{fontSize: 24}} />
           </IconButton>
           <div className={root('divider')} />
-          <IconButton disabled={value.items.some(x => !x.done)}>
+          <IconButton disabled={value.items.some(x => !x.done)} onClick={() => onRemove(value.id)}>
             <DeleteTwoTone sx={{fontSize: 24}} />
           </IconButton>
         </div>

@@ -1,6 +1,6 @@
 import {createSlice, createSliceName} from 'src/core/redux';
 import {PayloadAction} from 'src/core/redux';
-import {readTodoList, TodoTask, writeTodo} from 'src/storage/todos';
+import {readTodoList, removeTodo, TodoTask, writeTodo} from 'src/storage/todos';
 
 import {AppThunk} from '..';
 
@@ -43,5 +43,11 @@ export const loadTodoList = (): AppThunk => async dispatch => {
 export const saveTodo = (todo: TodoTask): AppThunk => async dispatch => {
   dispatch(addFetching(1));
   writeTodo(todo);
+  dispatch(addFetching(-1));
+};
+
+export const deleteTodo = (todoId: string): AppThunk => async dispatch => {
+  dispatch(addFetching(1));
+  removeTodo(todoId);
   dispatch(addFetching(-1));
 };
