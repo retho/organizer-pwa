@@ -12,8 +12,9 @@ const AboutPage: FC = () => {
   return (
     <MainLayout header={'About'} backTo={stringifyRoute(routes.settings, {}, {})}>
       <Paper className={root()}>
-        <div>Commit SHA: N/A</div>
-        <div>Build time: N/A</div>
+        <div>Build time: {process.env.REACT_APP_BUILD_TIME || 'N/A'}</div>
+        <div>Commit SHA (short): {process.env.REACT_APP_COMMIT_SHA_SHORT || 'N/A'}</div>
+        <div>Commit SHA (full): {process.env.REACT_APP_COMMIT_SHA_FULL || 'N/A'}</div>
       </Paper>
     </MainLayout>
   );
