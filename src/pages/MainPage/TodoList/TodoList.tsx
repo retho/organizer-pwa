@@ -6,7 +6,7 @@ import React, {FC, useEffect} from 'react';
 import Preloader from 'src/components/misc/Preloader';
 import {bem} from 'src/core/bem';
 import {useDispatch, useSelector} from 'src/core/redux';
-import {Link, stringifyRoute} from 'src/core/router';
+import {A, stringifyRoute} from 'src/core/router';
 import {routes} from 'src/router';
 import {TodoTask} from 'src/storage/todos';
 import {deleteTodo, loadTodoList, saveTodo} from 'src/store/slices/todoList';
@@ -49,7 +49,7 @@ const TodoList: FC = () => {
         color="primary"
         aria-label="add"
         className={root('add')}
-        LinkComponent={Link}
+        LinkComponent={A}
         href={stringifyRoute(routes.todoNew, {}, {})}
       >
         <Add />

@@ -5,7 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import {IconButton, Paper} from '@mui/material';
 import React, {FC} from 'react';
 import {bem, cn} from 'src/core/bem';
-import {stringifyRoute} from 'src/core/router';
+import {A, stringifyRoute} from 'src/core/router';
 import {routes} from 'src/router';
 
 export enum FooterTab {
@@ -24,14 +24,14 @@ const FooterTabs: FC<FooterTabsProps> = ({activeTab, className}) => {
     <Paper className={cn(className, footerTabs())} variant="outlined">
       <IconButton
         color={getColor(activeTab === FooterTab.todoList)}
-        component="a"
+        component={A}
         href={stringifyRoute(routes.todoList, {}, {})}
       >
         <FormatListBulletedSharpIcon sx={{fontSize: 32}} />
       </IconButton>
       <IconButton
         color={getColor(activeTab === FooterTab.settings)}
-        component="a"
+        component={A}
         href={stringifyRoute(routes.settings, {}, {})}
       >
         <SettingsIcon sx={{fontSize: 32}} />

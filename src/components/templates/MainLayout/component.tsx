@@ -4,7 +4,7 @@ import {ArrowBack} from '@mui/icons-material';
 import {Paper} from '@mui/material';
 import React, {FC, ReactNode} from 'react';
 import {bem} from 'src/core/bem';
-import {Href, Link} from 'src/core/router';
+import {A, Href} from 'src/core/router';
 
 const root = bem(module.id, 'MainLayout');
 
@@ -17,9 +17,9 @@ const MainLayout: FC<Props> = ({backTo, header, children}) => {
     <div className={root()}>
       <Paper className={root('header')}>
         {backTo && (
-          <Link href={backTo} className={root('backIcon')}>
+          <A href={backTo} className={root('backIcon')}>
             <ArrowBack />
-          </Link>
+          </A>
         )}
         {header}
       </Paper>

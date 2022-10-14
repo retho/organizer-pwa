@@ -5,7 +5,7 @@ import {List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper} from 
 import React, {FC, useEffect} from 'react';
 import {bem} from 'src/core/bem';
 import {useDispatch} from 'src/core/redux';
-import {Href, stringifyRoute} from 'src/core/router';
+import {A, Href, stringifyRoute} from 'src/core/router';
 import {routes} from 'src/router';
 import {loadTodoList} from 'src/store/slices/todoList';
 
@@ -18,7 +18,7 @@ const SettingsListItem: FC<SettingsListItemProps> = ({href, icon, text}) => {
   return (
     <ListItem disablePadding>
       <Paper style={{width: '100%'}}>
-        <ListItemButton component="a" href={href}>
+        <ListItemButton component={A} href={href}>
           <ListItemIcon>{icon}</ListItemIcon>
           <ListItemText primary={text} />
         </ListItemButton>
