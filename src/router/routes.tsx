@@ -1,6 +1,7 @@
 import React from 'react';
 import {emptyQueryableInstance, Redirect, Route, stringifyRoute} from 'src/core/router';
 import {declareRouteParams} from 'src/core/router/core';
+import AboutPage from 'src/pages/AboutPage';
 import DemoPage from 'src/pages/DemoPage';
 import DemoRouter, {DemoRouterPageTab} from 'src/pages/DemoRouter';
 import {demoRouterPageQueryableInstance} from 'src/pages/DemoRouter/query';
@@ -54,6 +55,12 @@ export const settings = createRoute({
   params: declareRouteParams(),
   query: emptyQueryableInstance,
   render: () => <SettingsPage />,
+});
+export const settingsAbout = createRoute({
+  pattern: '/settings/about',
+  params: declareRouteParams(),
+  query: emptyQueryableInstance,
+  render: () => <AboutPage />,
 });
 
 export const demoRouter = createRoute({

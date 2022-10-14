@@ -39,7 +39,7 @@ const SettingsList: FC = () => {
     <div className={root()}>
       <List>
         <SettingsListItem
-          href={stringifyRoute(routes.settings, {}, {})}
+          href={stringifyRoute(routes.settingsAbout, {}, {})}
           icon={<InfoIcon />}
           text="About"
         />
