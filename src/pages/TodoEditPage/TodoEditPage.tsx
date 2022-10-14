@@ -1,7 +1,7 @@
 import './styles.scss';
 
-import {Add, Close, Done, EditTwoTone} from '@mui/icons-material';
-import {IconButton, Paper, TextField} from '@mui/material';
+import {Close, Done, EditTwoTone} from '@mui/icons-material';
+import {IconButton, Paper, TextField, Typography} from '@mui/material';
 import React, {FC, useLayoutEffect, useMemo, useState} from 'react';
 import Preloader from 'src/components/atoms/Preloader';
 import MainLayout from 'src/components/templates/MainLayout';
@@ -17,31 +17,37 @@ import {Timestamp, timestamp} from 'src/utils/timestamp';
 const taskItemEdit = bem(module.id, 'TodoTaskItemEdit');
 type TodoTaskItemProps = {
   value: null | TodoTaskItem;
+  defaultEditMode?: boolean;
   onChange: (val: TodoTaskItem) => void;
+  onEdit?: (val: TodoTaskItem) => void;
 };
-const TodoTaskItemEdit: FC<TodoTaskItemProps> = ({value, onChange}) => {
-  const [description, setDescription] = useState(value?.description || '');
-  const [editMode, setEditMode] = useState(!value);
+const TodoTaskItemEdit: FC<TodoTaskItemProps> = ({value, defaultEditMode, onChange, onEdit}) => {
+  const [editMode, setEditMode] = useState(!!defaultEditMode);
+
+  const [editedValue, setEditedValue] = useState(
+    value || {
+      id: nanoid(),
+      done: false,
+      description: '',
+    }
+  );
+  useLayoutEffect(() => {
+    if (value) setEditedValue(value);
+  }, [value]);
+
+  useLayoutEffect(() => {
+    if (editMode && onEdit) onEdit(editedValue);
+  }, [editedValue]);
 
   const handleEditDoneBtnClick = () => {
     if (editMode) {
-      if (!description) return;
-      onChange({
-        id: value?.id ?? nanoid(),
-        done: value?.done ?? false,
-        description,
-      });
+      if (!editedValue.description) return;
+      setEditMode(false);
+      onChange(editedValue);
     } else {
       setEditMode(true);
     }
   };
-
-  useLayoutEffect(() => {
-    if (value) {
-      setEditMode(false);
-      setDescription(value.description);
-    }
-  }, [value]);
 
   return (
     <div className={taskItemEdit()}>
@@ -57,11 +63,11 @@ const TodoTaskItemEdit: FC<TodoTaskItemProps> = ({value, onChange}) => {
           <TextField
             className={taskItemEdit('textinput')}
             variant="standard"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
+            value={editedValue.description}
+            onChange={e => setEditedValue(val => ({...val, description: e.target.value}))}
           />
         ) : (
-          description
+          editedValue.description
         )}
       </div>
     </div>
@@ -83,7 +89,7 @@ const TodoEditPage: FC<TodoEditPageProps> = ({todoId: editedTodoId}) => {
   const [created_at, set_created_at] = useState<null | Timestamp>(null);
   const [title, setTitle] = useState('');
   const [taskItems, setTaskItems] = useState<TodoTaskItem[]>([]);
-  const [addingNew, setAddingNew] = useState(false);
+  const [editedTask, setEditedTask] = useState<null | TodoTaskItem>(null);
 
   useLayoutEffect(() => {
     if (editedTodoId) {
@@ -97,9 +103,10 @@ const TodoEditPage: FC<TodoEditPageProps> = ({todoId: editedTodoId}) => {
 
   const handleTaskEdit = (task: TodoTaskItem) =>
     setTaskItems(list => list.map(x => (x.id !== task.id ? x : task)));
+  const handleEditNew = (task: TodoTaskItem) => setEditedTask(task);
   const handleTaskNew = (task: TodoTaskItem) => {
     setTaskItems(list => [...list, task]);
-    setAddingNew(false);
+    setEditedTask(null);
   };
 
   const handleOk = async () => {
@@ -132,18 +139,18 @@ const TodoEditPage: FC<TodoEditPageProps> = ({todoId: editedTodoId}) => {
           />
           <br />
           <br />
-          Items:
+          <Typography color="secondary">Items:</Typography>
           <div>
             {taskItems.map(item => (
               <TodoTaskItemEdit key={item.id} value={item} onChange={handleTaskEdit} />
             ))}
-            {addingNew ? (
-              <TodoTaskItemEdit key="new" value={null} onChange={handleTaskNew} />
-            ) : (
-              <IconButton onClick={() => setAddingNew(true)}>
-                {<Add sx={{fontSize: 24}} color="primary" />}
-              </IconButton>
-            )}
+            <TodoTaskItemEdit
+              key={`new-${editedTask?.id || ''}`}
+              value={editedTask}
+              defaultEditMode
+              onEdit={handleEditNew}
+              onChange={handleTaskNew}
+            />
           </div>
         </div>
         <Paper className={root('footer')} variant="outlined">
