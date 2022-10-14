@@ -3,7 +3,7 @@ import './styles.scss';
 import {Close, Done, EditTwoTone} from '@mui/icons-material';
 import {IconButton, Paper, TextField, Typography} from '@mui/material';
 import React, {FC, useLayoutEffect, useMemo, useState} from 'react';
-import Preloader from 'src/components/atoms/Preloader';
+import Preloader from 'src/components/misc/Preloader';
 import MainLayout from 'src/components/templates/MainLayout';
 import {bem} from 'src/core/bem';
 import {useDispatch, useSelector} from 'src/core/redux';

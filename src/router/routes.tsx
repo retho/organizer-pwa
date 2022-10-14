@@ -5,6 +5,7 @@ import DemoPage from 'src/pages/DemoPage';
 import DemoRouter, {DemoRouterPageTab} from 'src/pages/DemoRouter';
 import {demoRouterPageQueryableInstance} from 'src/pages/DemoRouter/query';
 import MainPage from 'src/pages/MainPage';
+import SettingsPage from 'src/pages/SettingsPage';
 import TodoEditPage from 'src/pages/TodoEditPage';
 
 export type AppRoute<Params, Query> = Route<Params, Query> & {
@@ -46,6 +47,13 @@ export const todoEdit = createRoute({
   params: declareRouteParams<{todoId: string}>(),
   query: emptyQueryableInstance,
   render: ({todoId}) => <TodoEditPage todoId={todoId} />,
+});
+
+export const settings = createRoute({
+  pattern: '/settings',
+  params: declareRouteParams(),
+  query: emptyQueryableInstance,
+  render: () => <SettingsPage />,
 });
 
 export const demoRouter = createRoute({

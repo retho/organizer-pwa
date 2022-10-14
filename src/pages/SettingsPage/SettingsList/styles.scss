@@ -1,0 +1,20 @@
+
+.SettingsList {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+
+  $root: &;
+
+  &__item {
+    margin: 16px 0;
+  }
+
+  &__add {
+    #{$root} & {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+    }
+  }
+}

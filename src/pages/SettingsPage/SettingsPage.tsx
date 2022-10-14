@@ -5,20 +5,20 @@ import FooterTabs, {FooterTab} from 'src/components/forPages/FooterTabs';
 import MainLayout from 'src/components/templates/MainLayout';
 import {bem} from 'src/core/bem';
 
-import TodoList from './TodoList';
+import SettingsList from './SettingsList';
 
-const root = bem(module.id, 'MainPage');
-const MainPage: FC = () => {
+const root = bem(module.id, 'SettingsPage');
+const SettingsPage: FC = () => {
   return (
-    <MainLayout header="Todo list">
+    <MainLayout header="Settings">
       <div className={root()}>
         <div className={root('body')}>
-          <TodoList />
+          <SettingsList />
         </div>
-        <FooterTabs className={root('footer')} activeTab={FooterTab.todoList} />
+        <FooterTabs className={root('footer')} activeTab={FooterTab.settings} />
       </div>
     </MainLayout>
   );
 };
 
-export default MainPage;
+export default SettingsPage;

@@ -3,7 +3,7 @@ import './styles.scss';
 import {Add} from '@mui/icons-material';
 import {Fab} from '@mui/material';
 import React, {FC, useEffect} from 'react';
-import Preloader from 'src/components/atoms/Preloader';
+import Preloader from 'src/components/misc/Preloader';
 import {bem} from 'src/core/bem';
 import {useDispatch, useSelector} from 'src/core/redux';
 import {Link, stringifyRoute} from 'src/core/router';
